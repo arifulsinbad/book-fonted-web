@@ -51,9 +51,19 @@ const cartSlice = createSlice({
 
       state.total -= action.payload.price * action.payload.quantity!;
     },
+    addEmailCart: (state, action: PayloadAction<IProduct>) => {
+      const existing = state.products.find(
+        (product) => product.email === action.payload.email
+      );
+
+      if (!existing) {
+        state.products.push(action.payload);
+      }
+    },
   },
 });
 
-export const { addToCart, removeFromCart, removeOne } = cartSlice.actions;
+export const { addToCart, removeFromCart, removeOne, addEmailCart } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

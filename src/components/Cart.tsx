@@ -28,7 +28,7 @@ export default function Cart() {
     <Sheet>
       <SheetTrigger>
         <Button variant="ghost">
-          <HiOutlineShoppingCart size="25" />
+          <HiOutlineShoppingCart size="50" />
         </Button>
       </SheetTrigger>
       <SheetContent className="overflow-auto relative">
@@ -39,19 +39,16 @@ export default function Cart() {
         <div className="space-y-5">
           {products.map((product) => (
             <div
-              className="border h-44 p-5 flex justify-between rounded-md"
-              key={product.name}
+              className="border h-100 p-5 flex justify-between rounded-md"
+              key={product.title}
             >
-              <div className="border-r pr-5 shrink-0">
+              {/* <div className="border-r pr-5 shrink-0">
                 <img src={product?.image} alt="" className="h-full" />
-              </div>
+              </div> */}
               <div className="px-2 w-full flex flex-col gap-3">
-                <h1 className="text-2xl self-center">{product?.name}</h1>
+                <h1 className="text-2xl self-center">{product?.title}</h1>
                 <p>Quantity: {product.quantity}</p>
-                <p className="text-xl">
-                  Total Price: {(product.price * product.quantity!).toFixed(2)}{' '}
-                  $
-                </p>
+                <p className="text-xl">Author: {product.author}</p>
               </div>
               <div className="border-l pl-5 flex flex-col justify-between">
                 <Button onClick={() => dispatch(addToCart(product))}>
@@ -60,13 +57,15 @@ export default function Cart() {
                 <Button onClick={() => dispatch(removeOne(product))}>
                   <HiMinus size="20" />
                 </Button>
-                <Button
-                  onClick={() => dispatch(removeFromCart(product))}
-                  variant="destructive"
-                  className="bg-red-500 hover:bg-red-400"
-                >
-                  <HiOutlineTrash size="20" />
-                </Button>
+                {product.email && (
+                  <Button
+                    onClick={() => dispatch(removeFromCart(product))}
+                    variant="destructive"
+                    className="bg-red-500 hover:bg-red-400"
+                  >
+                    <HiOutlineTrash size="20" />
+                  </Button>
+                )}
               </div>
             </div>
           ))}

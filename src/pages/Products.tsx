@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 
 export default function Products() {
   const { data, isLoading, error } = useGetProductsQuery(undefined);
-
+  console.log(data?.data?.data);
   const { toast } = useToast();
 
   const { priceRange, status } = useAppSelector((state) => state.product);
@@ -24,20 +24,20 @@ export default function Products() {
     dispatch(setPriceRange(value[0]));
   };
 
-  let productsData;
+  // let productsData;
 
-  if (status) {
-    productsData = data?.data?.filter(
-      (item: { status: boolean; price: number }) =>
-        item.status === true && item.price < priceRange
-    );
-  } else if (priceRange > 0) {
-    productsData = data?.data?.filter(
-      (item: { price: number }) => item.price < priceRange
-    );
-  } else {
-    productsData = data?.data;
-  }
+  // if (status) {
+  //   productsData = data?.filter(
+  //     (item: { status: boolean; price: number }) =>
+  //       item.status === true && item.price < priceRange
+  //   );
+  // } else if (priceRange > 0) {
+  //   productsData = data?.filter(
+  //     (item: { price: number }) => item.price < priceRange
+  //   );
+  // } else {
+  //   productsData = data;
+  // }
 
   return (
     <div className="grid grid-cols-12 max-w-7xl mx-auto relative ">
@@ -67,7 +67,7 @@ export default function Products() {
         </div>
       </div>
       <div className="col-span-9 grid grid-cols-3 gap-10 pb-20">
-        {productsData?.map((product: IProduct) => (
+        {data?.data?.data?.map((product: IProduct) => (
           <ProductCard product={product} />
         ))}
       </div>
