@@ -8,13 +8,20 @@ const productApi = api.injectEndpoints({
     singleBook: builder.query({
       query: (id) => `/books/${id}`,
     }),
-    deleteBook: builder.query({
-      query: (id) => `/books/${id}`,
+    deleteBook: builder.mutation({
+      query: (id) => ({ url: `/books/${id}`, method: 'DELETE' }),
     }),
     postComment: builder.mutation({
       query: ({ id, data }) => ({
         url: `/books/${id}`,
         method: 'POST',
+        body: data,
+      }),
+    }),
+    updateBooks: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/books/${id}`,
+        method: 'PATCH',
         body: data,
       }),
     }),
@@ -37,6 +44,7 @@ export const {
   useGetProductsQuery,
   usePostCommentMutation,
   useCreateBookMutation,
-  useDeleteBookQuery,
+  useDeleteBookMutation,
   useSingleBookQuery,
+  useUpdateBooksMutation,
 } = productApi;

@@ -6,6 +6,7 @@ import { FiSend } from 'react-icons/fi';
 import {
   useGetCommentQuery,
   usePostCommentMutation,
+  useSingleBookQuery,
 } from '@/redux/features/products/productApi';
 
 interface IProps {
@@ -15,7 +16,7 @@ interface IProps {
 export default function ProductReview({ id }: IProps) {
   const [inputValue, setInputValue] = useState<string>('');
 
-  const { data } = useGetCommentQuery(id, {
+  const { data } = useSingleBookQuery(id, {
     refetchOnMountOrArgChange: true,
     pollingInterval: 30000,
   });

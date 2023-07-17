@@ -105,8 +105,8 @@ export default function Checkout() {
                     alt=""
                   />
                   <div>
-                    <h1 className="text-lg mb-2">{product.name}</h1>
-                    <p>Price: {product.price}</p>
+                    <h1 className="text-lg mb-2">{product.title}</h1>
+                    <p>Price: {product.author}</p>
                   </div>
                 </div>
                 <div>
