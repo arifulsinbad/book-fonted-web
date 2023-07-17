@@ -12,7 +12,7 @@ interface IProps {
 export default function ProductCard({ product }: IProps) {
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  console.log(product);
+
   const handleAddProduct = (product: IProduct, user: any) => {
     dispatch(addToCart(product));
     dispatch(addEmailCart(user));

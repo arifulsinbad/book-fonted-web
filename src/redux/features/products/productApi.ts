@@ -5,6 +5,9 @@ const productApi = api.injectEndpoints({
     getProducts: builder.query({
       query: () => '/books/',
     }),
+    getSearchProducts: builder.query({
+      query: (data) => `/books/?searchTerm=${data}`,
+    }),
     singleBook: builder.query({
       query: (id) => `/books/${id}`,
     }),
@@ -47,4 +50,5 @@ export const {
   useDeleteBookMutation,
   useSingleBookQuery,
   useUpdateBooksMutation,
+  useGetSearchProductsQuery,
 } = productApi;

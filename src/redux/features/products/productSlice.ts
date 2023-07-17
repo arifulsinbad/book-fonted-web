@@ -4,11 +4,13 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 interface IProduct {
   status: boolean;
   priceRange: number;
+  searchTerm: string;
 }
 
 const initialState: IProduct = {
   status: false,
   priceRange: 150,
+  searchTerm: '',
 };
 
 const productSlice = createSlice({
@@ -21,9 +23,12 @@ const productSlice = createSlice({
     setPriceRange: (state, action: PayloadAction<number>) => {
       state.priceRange = action.payload;
     },
+    searchTerm: (state, action: PayloadAction<string>) => {
+      state.searchTerm = action.payload;
+    },
   },
 });
 
-export const { toggleState, setPriceRange } = productSlice.actions;
+export const { toggleState, setPriceRange, searchTerm } = productSlice.actions;
 
 export default productSlice.reducer;

@@ -16,8 +16,17 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { setUser } from '@/redux/features/user/userSlice';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { Textarea } from '@/components/ui/textarea';
+import { FiSend } from 'react-icons/fi';
+import { Input } from '@/components/ui/input';
+import {
+  searchTerm,
+  toggleState,
+} from '@/redux/features/products/productSlice';
 
 export default function Navbar() {
+  const [inputValue, setInputValue] = useState<string>('');
   const { user } = useAppSelector((state) => state.user);
 
   const dispatch = useAppDispatch();
@@ -29,6 +38,14 @@ export default function Navbar() {
       dispatch(setUser(null));
     });
   };
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(inputValue);
+    dispatch(searchTerm(inputValue));
+  };
+  const handleChange = (event: any) => {
+    setInputValue(event.target.value);
+  };
 
   return (
     <nav className="w-full h-16 fixed top backdrop-blur-lg z-10">
@@ -39,6 +56,26 @@ export default function Navbar() {
           </div>
           <div>
             <ul className="flex items-center">
+              <li>
+                <form
+                  className="flex gap-5 items-center"
+                  onSubmit={handleSubmit}
+                >
+                  <Input
+                    className="min-h-[30px]"
+                    onChange={handleChange}
+                    value={inputValue}
+                  />
+                  <Button
+                    variant="ghost"
+                    onClick={() => dispatch(toggleState())}
+                  >
+                    <Link to="/products">
+                      <HiOutlineSearch size="25" />
+                    </Link>
+                  </Button>
+                </form>
+              </li>
               <li>
                 <Button variant="link" asChild>
                   <Link to="/">Home</Link>
@@ -54,11 +91,7 @@ export default function Navbar() {
                   <Link to="/checkout">Checkout</Link>
                 </Button>
               </li>
-              <li>
-                <Button variant="ghost">
-                  <HiOutlineSearch size="25" />
-                </Button>
-              </li>
+
               <li>
                 <Cart />
               </li>

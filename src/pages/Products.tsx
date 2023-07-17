@@ -3,7 +3,10 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/components/ui/use-toast';
-import { useGetProductsQuery } from '@/redux/features/products/productApi';
+import {
+  useGetProductsQuery,
+  useGetSearchProductsQuery,
+} from '@/redux/features/products/productApi';
 import {
   setPriceRange,
   toggleState,
@@ -17,14 +20,23 @@ export default function Products() {
   console.log(data?.data?.data);
   const { toast } = useToast();
 
-  const { priceRange, status } = useAppSelector((state) => state.product);
+  const { priceRange, status, searchTerm } = useAppSelector(
+    (state) => state.product
+  );
+  const { data: product } = useGetSearchProductsQuery(searchTerm);
   const dispatch = useAppDispatch();
 
   const handleSlider = (value: number[]) => {
     dispatch(setPriceRange(value[0]));
   };
 
-  // let productsData;
+  let productsData;
+  if (status) {
+    productsData = product?.data?.data;
+  } else {
+    productsData = data?.data?.data;
+  }
+  console.log(productsData);
 
   // if (status) {
   //   productsData = data?.filter(
@@ -67,7 +79,7 @@ export default function Products() {
         </div>
       </div>
       <div className="col-span-9 grid grid-cols-3 gap-10 pb-20">
-        {data?.data?.data?.map((product: IProduct) => (
+        {productsData?.map((product: IProduct) => (
           <ProductCard product={product} />
         ))}
       </div>
