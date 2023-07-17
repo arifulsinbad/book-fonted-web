@@ -38,6 +38,7 @@ export default function ProductDetails() {
           <Button>
             <Link to={`/updateProduct/${id}`}>Edit</Link>
           </Button>
+
           {product?.data?.email === email && (
             <Button
               className="bg-red-500 ml-10"
@@ -46,6 +47,9 @@ export default function ProductDetails() {
               Delete
             </Button>
           )}
+          <Button>
+            <Link to={`/`}>Finised</Link>
+          </Button>
         </div>
       </div>
       <ProductReview id={id!} />
