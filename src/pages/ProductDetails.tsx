@@ -5,12 +5,14 @@ import {
   useDeleteBookMutation,
   useSingleBookQuery,
 } from '@/redux/features/products/productApi';
+import { useAppSelector } from '@/redux/hook';
 import { IProduct } from '@/types/globalTypes';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 export default function ProductDetails() {
   const { id } = useParams();
+  const { email } = useAppSelector((state) => state.user.user);
   const { data: product, isLoading, error } = useSingleBookQuery(id);
   const [postDelete, { isSuccess }] = useDeleteBookMutation();
   const handleDelete = (id: string | undefined) => {
@@ -36,9 +38,14 @@ export default function ProductDetails() {
           <Button>
             <Link to={`/updateProduct/${id}`}>Edit</Link>
           </Button>
-          <Button className="bg-red-500 ml-10" onClick={() => handleDelete(id)}>
-            Delete
-          </Button>
+          {product?.data?.email === email && (
+            <Button
+              className="bg-red-500 ml-10"
+              onClick={() => handleDelete(id)}
+            >
+              Delete
+            </Button>
+          )}
         </div>
       </div>
       <ProductReview id={id!} />

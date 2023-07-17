@@ -30,12 +30,17 @@ export default function ProductCard({ product }: IProps) {
         <p>Author: {product?.author}</p>
         <p className="text-sm">Genre: {product?.genre}</p>
         <p className="text-sm">Date: {product?.publicationDate}</p>
-        <Button
-          variant="default"
-          onClick={() => handleAddProduct(product, user)}
-        >
-          Add to cart
-        </Button>
+        <div className="flex justify-between gap-10">
+          <Button
+            variant="default"
+            onClick={() => handleAddProduct(product, user)}
+          >
+            Add to cart
+          </Button>
+          <Button>
+            <Link to="/checkout">Wishlist</Link>
+          </Button>
+        </div>
       </div>
     </div>
   );
