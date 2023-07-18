@@ -2,8 +2,9 @@ import ProductCard from '@/components/ProductCard';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
-import { useToast } from '@/components/ui/use-toast';
+
 import {
+  useGetFilterProductsQuery,
   useGetProductsQuery,
   useGetSearchProductsQuery,
 } from '@/redux/features/products/productApi';
@@ -13,17 +14,16 @@ import {
 } from '@/redux/features/products/productSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { IProduct } from '@/types/globalTypes';
-import { useEffect, useState } from 'react';
 
 export default function Products() {
-  const { data, isLoading, error } = useGetProductsQuery(undefined);
+  const { data } = useGetProductsQuery(undefined);
   console.log(data?.data?.data);
-  const { toast } = useToast();
 
-  const { priceRange, status, searchTerm } = useAppSelector(
+  const { yearsRange, status, searchTerm } = useAppSelector(
     (state) => state.product
   );
   const { data: product } = useGetSearchProductsQuery(searchTerm);
+  const { data: filter } = useGetFilterProductsQuery(yearsRange);
   const dispatch = useAppDispatch();
 
   const handleSlider = (value: number[]) => {
@@ -33,6 +33,8 @@ export default function Products() {
   let productsData;
   if (status) {
     productsData = product?.data?.data;
+  } else if (yearsRange > 1900) {
+    productsData = filter?.data?.data;
   } else {
     productsData = data?.data?.data;
   }
@@ -65,17 +67,17 @@ export default function Products() {
           </div>
         </div>
         <div className="space-y-3 ">
-          <h1 className="text-2xl uppercase">Price Range</h1>
+          <h1 className="text-2xl uppercase">Year Range</h1>
           <div className="max-w-xl">
             <Slider
-              defaultValue={[150]}
-              max={150}
-              min={0}
+              defaultValue={[1900]}
+              max={2023}
+              min={1900}
               step={1}
               onValueChange={(value) => handleSlider(value)}
             />
           </div>
-          <div>From 0$ To {priceRange}$</div>
+          <div>From 1900 Year To {yearsRange} Year</div>
         </div>
       </div>
       <div className="col-span-9 grid grid-cols-3 gap-10 pb-20">

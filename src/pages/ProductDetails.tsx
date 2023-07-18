@@ -6,15 +6,14 @@ import {
   useSingleBookQuery,
 } from '@/redux/features/products/productApi';
 import { useAppSelector } from '@/redux/hook';
-import { IProduct } from '@/types/globalTypes';
-import { useEffect, useState } from 'react';
+
 import { Link, useParams } from 'react-router-dom';
 
 export default function ProductDetails() {
   const { id } = useParams();
   const { email } = useAppSelector((state) => state.user.user);
-  const { data: product, isLoading, error } = useSingleBookQuery(id);
-  const [postDelete, { isSuccess }] = useDeleteBookMutation();
+  const { data: product } = useSingleBookQuery(id);
+  const [postDelete] = useDeleteBookMutation();
   const handleDelete = (id: string | undefined) => {
     postDelete(id);
     toast({

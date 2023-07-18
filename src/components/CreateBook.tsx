@@ -1,10 +1,9 @@
 import { toast } from '@/components/ui/use-toast';
-import { useUpdateBooksMutation } from '@/redux/features/products/productApi';
+import { useCreateBookMutation } from '@/redux/features/products/productApi';
 import { useAppSelector } from '@/redux/hook';
-import React, { useEffect } from 'react';
+
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+
 interface IBook {
   image: string;
   email: string;
@@ -15,29 +14,26 @@ interface IBook {
 }
 // import { productUpdate, toggleUpdate } from "../features/products/productsSlice";
 
-const UpdateBooks = () => {
+const CreateBook = () => {
   const { register, handleSubmit } = useForm<IBook>();
-  const dispatch = useDispatch();
+
   const { user } = useAppSelector((state) => state.user);
-  const [updatePost, { isSuccess }] = useUpdateBooksMutation();
-  const { id } = useParams();
+  const [createPost, { isSuccess }] = useCreateBookMutation();
+
   console.log(isSuccess);
   const submit = (data: IBook): void => {
     const books = {
-      id: id,
-      data: {
-        title: data.title,
-        image: data.image,
+      title: data.title,
+      image: data.image,
 
-        author: data.author,
-        genre: data.genre,
-        email: user.email,
-        publicationDate: data.publicationDate,
-      },
+      author: data.author,
+      genre: data.genre,
+      email: user.email,
+      publicationDate: data.publicationDate,
     };
-    updatePost(books);
+    createPost(books);
     toast({
-      description: 'Product Update',
+      description: 'Product Create',
     });
     console.log(books);
   };
@@ -99,4 +95,4 @@ const UpdateBooks = () => {
   );
 };
 
-export default UpdateBooks;
+export default CreateBook;

@@ -4,7 +4,6 @@ import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import { FiSend } from 'react-icons/fi';
 import {
-  useGetCommentQuery,
   usePostCommentMutation,
   useSingleBookQuery,
 } from '@/redux/features/products/productApi';

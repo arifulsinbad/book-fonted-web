@@ -12,7 +12,7 @@ import {
   HiOutlineTrash,
 } from 'react-icons/hi';
 import { Button } from './ui/button';
-import { IProduct } from '@/types/globalTypes';
+
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import {
   addToCart,
@@ -21,7 +21,7 @@ import {
 } from '@/redux/features/cart/cartSlice';
 
 export default function Cart() {
-  const { products, total } = useAppSelector((state) => state.cart);
+  const { products } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
 
   return (
@@ -34,7 +34,6 @@ export default function Cart() {
       <SheetContent className="overflow-auto relative">
         <SheetHeader>
           <SheetTitle>Cart</SheetTitle>
-          <h1>Total: {total.toFixed(2)}</h1>
         </SheetHeader>
         <div className="space-y-5">
           {products.map((product) => (

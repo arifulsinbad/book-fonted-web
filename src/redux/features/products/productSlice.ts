@@ -3,13 +3,13 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 interface IProduct {
   status: boolean;
-  priceRange: number;
+  yearsRange: number;
   searchTerm: string;
 }
 
 const initialState: IProduct = {
   status: false,
-  priceRange: 150,
+  yearsRange: 0,
   searchTerm: '',
 };
 
@@ -21,7 +21,7 @@ const productSlice = createSlice({
       state.status = !state.status;
     },
     setPriceRange: (state, action: PayloadAction<number>) => {
-      state.priceRange = action.payload;
+      state.yearsRange = action.payload;
     },
     searchTerm: (state, action: PayloadAction<string>) => {
       state.searchTerm = action.payload;

@@ -11,14 +11,13 @@ import {
 } from '../components/ui/dropdown-menu';
 import { HiOutlineSearch } from 'react-icons/hi';
 import Cart from '../components/Cart';
-import logo from '../assets/images/technet-logo.png';
+
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { setUser } from '@/redux/features/user/userSlice';
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { Textarea } from '@/components/ui/textarea';
-import { FiSend } from 'react-icons/fi';
+import { FormEvent, useState } from 'react';
+
 import { Input } from '@/components/ui/input';
 import {
   searchTerm,

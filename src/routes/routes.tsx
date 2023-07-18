@@ -8,8 +8,9 @@ import Checkout from '@/pages/Checkout';
 import Signup from '@/pages/Signup';
 import ProductDetails from '@/pages/ProductDetails';
 import PrivateRoute from './PrivateRoute';
-import UpdateBooks from '@/pages/updateBooks';
-import CreateBook from '@/pages/createBook';
+
+import CreateBook from '@/components/CreateBook';
+import UpdateBooks from '@/components/UpdateBooks';
 
 const routes = createBrowserRouter([
   {

@@ -3,7 +3,7 @@ import { toast } from './ui/use-toast';
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
-import { addEmailCart, addToCart } from '@/redux/features/cart/cartSlice';
+import { addToCart } from '@/redux/features/cart/cartSlice';
 
 interface IProps {
   product: IProduct;
@@ -13,9 +13,9 @@ export default function ProductCard({ product }: IProps) {
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
-  const handleAddProduct = (product: IProduct, user: any) => {
+  const handleAddProduct = (product: IProduct) => {
     dispatch(addToCart(product));
-    dispatch(addEmailCart(user));
+
     toast({
       description: 'Product Added',
     });
@@ -31,15 +31,19 @@ export default function ProductCard({ product }: IProps) {
         <p className="text-sm">Genre: {product?.genre}</p>
         <p className="text-sm">Date: {product?.publicationDate}</p>
         <div className="flex justify-between gap-10">
-          <Button
-            variant="default"
-            onClick={() => handleAddProduct(product, user)}
-          >
-            Add to cart
-          </Button>
-          <Button>
-            <Link to="/checkout">Wishlist</Link>
-          </Button>
+          {user.email && (
+            <>
+              <Button
+                variant="default"
+                onClick={() => handleAddProduct(product)}
+              >
+                Add to cart
+              </Button>
+              <Button>
+                <Link to="/checkout">Wishlist</Link>
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </div>
