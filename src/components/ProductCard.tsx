@@ -3,7 +3,7 @@ import { toast } from './ui/use-toast';
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
-import { addToCart } from '@/redux/features/cart/cartSlice';
+import { addToCart, addToRead } from '@/redux/features/cart/cartSlice';
 
 interface IProps {
   product: IProduct;
@@ -17,7 +17,14 @@ export default function ProductCard({ product }: IProps) {
     dispatch(addToCart(product));
 
     toast({
-      description: 'Product Added',
+      description: 'Wishlist Added',
+    });
+  };
+  const handleAddRead = (product: IProduct) => {
+    dispatch(addToRead(product));
+
+    toast({
+      description: 'Read Added',
     });
   };
   return (
@@ -33,15 +40,16 @@ export default function ProductCard({ product }: IProps) {
         <div className="flex justify-between gap-10">
           {user.email && (
             <>
-              <Button
-                variant="default"
-                onClick={() => handleAddProduct(product)}
-              >
-                Add to cart
-              </Button>
-              <Button>
-                <Link to="/checkout">Wishlist</Link>
-              </Button>
+              <p onClick={() => handleAddRead(product)}>
+                <Link to="/addToRead">
+                  <Button>Add To Read</Button>
+                </Link>
+              </p>
+              <p onClick={() => handleAddProduct(product)}>
+                <Link to="/whishlist">
+                  <Button>Whishlist</Button>
+                </Link>
+              </p>
             </>
           )}
         </div>

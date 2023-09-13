@@ -42,7 +42,7 @@ export function LoginForm({ className, ...props }: UserAuthFormProps) {
     if (user.email && !isLoading) {
       navigate('/');
     }
-  }, [user.email, isLoading]);
+  }, [user.email, isLoading, navigate]);
 
   return (
     <div className={cn('grid gap-6', className)} {...props}>

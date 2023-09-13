@@ -4,13 +4,15 @@ import Login from '@/pages/Login';
 import NotFound from '@/pages/NotFound';
 import Home from '@/pages/Home';
 import Products from '@/pages/Products';
-import Checkout from '@/pages/Checkout';
+import Checkout from '@/pages/AddToRead';
 import Signup from '@/pages/Signup';
 import ProductDetails from '@/pages/ProductDetails';
 import PrivateRoute from './PrivateRoute';
 
 import CreateBook from '@/components/CreateBook';
 import UpdateBooks from '@/components/UpdateBooks';
+import Whishlist from '@/components/Whishlist';
+import AddToRead from '@/pages/AddToRead';
 
 const routes = createBrowserRouter([
   {
@@ -24,6 +26,22 @@ const routes = createBrowserRouter([
       {
         path: '/products',
         element: <Products />,
+      },
+      {
+        path: '/whishlist',
+        element: (
+          <PrivateRoute>
+            <Whishlist />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/addToRead',
+        element: (
+          <PrivateRoute>
+            <AddToRead />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/createBook',
@@ -45,16 +63,17 @@ const routes = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: '/login',
+        element: <Login />,
+      },
+      {
+        path: '/signup',
+        element: <Signup />,
+      },
     ],
   },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/signup',
-    element: <Signup />,
-  },
+
   {
     path: '*',
     element: <NotFound />,

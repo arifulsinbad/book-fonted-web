@@ -3,22 +3,19 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import { FiSend } from 'react-icons/fi';
-import {
-  usePostCommentMutation,
-  useSingleBookQuery,
-} from '@/redux/features/products/productApi';
+import { usePostCommentMutation } from '@/redux/features/products/productApi';
 
 interface IProps {
   id: string;
 }
-
+const data = ['Nice', 'Beautifull', 'Wow', 'Wonderfull'];
 export default function ProductReview({ id }: IProps) {
   const [inputValue, setInputValue] = useState<string>('');
 
-  const { data } = useSingleBookQuery(id, {
-    refetchOnMountOrArgChange: true,
-    pollingInterval: 30000,
-  });
+  // const { data } = useSingleBookQuery(id, {
+  //   refetchOnMountOrArgChange: true,
+  //   pollingInterval: 30000,
+  // });
   const [postComment, { isLoading, isError, isSuccess }] =
     usePostCommentMutation();
 
@@ -59,7 +56,7 @@ export default function ProductReview({ id }: IProps) {
         </Button>
       </form>
       <div className="mt-10">
-        {data?.comments?.map((comment: string, index: number) => (
+        {data?.map((comment: string, index: number) => (
           <div key={index} className="flex gap-3 items-center mb-5">
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" />
